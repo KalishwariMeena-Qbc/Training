@@ -25,7 +25,7 @@ int main(void)
 		printf("\nTo continue type[y/n]:");
 		scanf("%s",&ch);
 	} while(ch=='y');
-
+	event_unregister();
 	return 0;
 }
 

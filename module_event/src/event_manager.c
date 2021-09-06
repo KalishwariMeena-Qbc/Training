@@ -49,4 +49,15 @@ int event_run(int event)
 	return 1;
 }
 	
+void event_unregister(void)
+{
+        event_details *current = head;
+        while(current){
+                event_details *p = current;
+                current = current->next;
+                p->next=NULL;
+                free(p);
+        }
+
+}
 
