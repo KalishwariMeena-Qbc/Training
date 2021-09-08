@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
 	char buffer[256];
 	struct sockaddr_in serv_addr, cli_addr;
 	int n;
+	int opt = 1;
 
 	if (argc < 2) {
 		fprintf(stderr,"ERROR, no port provided\n");
@@ -29,7 +30,10 @@ int main(int argc, char *argv[])
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	if (sockfd < 0) 
         	error("ERROR opening socket");
-	
+ 	if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT,
+							&opt, sizeof(opt)))
+		error("setsockopt");
+
 	bzero((char *) &serv_addr, sizeof(serv_addr));
 	portno = atoi(argv[1]);
 	serv_addr.sin_family = AF_INET;
